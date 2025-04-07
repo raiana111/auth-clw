@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, TextField, Container, Box } from '@mui/material';
 import { useAuthStore } from '../store/userAuthStore.ts';
-import {axiosApi} from '../axiosApi.ts';
+import { createPost } from '../api/posts';
 
 export const CreatePost = () => {
   const [content, setContent] = useState('');
@@ -11,13 +11,12 @@ export const CreatePost = () => {
     e.preventDefault();
     if (!user) return;
 
-    await axiosApi.post('/posts.json', {
+    await createPost({
       content,
       userId: user.id,
-      email: user.email,
+      email: user.email || '',
       createdAt: new Date().toISOString(),
-    });
-    setContent('');
+    })
   };
 
   return (
