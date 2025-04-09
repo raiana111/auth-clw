@@ -4,18 +4,25 @@ import { emailSignIn } from '../firebase';
 
 import { Link, useNavigate } from 'react-router-dom';
 import {useAuthStore} from '../store/userAuthStore';
+import {getUserById} from '../api/users'
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { setUser } = useAuthStore();
+  const { setUser, setProfile } = useAuthStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const { user } = await emailSignIn(email, password);
+      if (user.uid) {
+        const userFull = await getUserById(user.uid);
+        if (userFull) {
+          setProfile(userFull);
+        }
+      }
       setUser({email: user.email, id: user.uid});
       navigate('/');
     } catch (error) {

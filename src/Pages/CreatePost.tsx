@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Button, TextField, Container, Box } from '@mui/material';
 import { useAuthStore } from '../store/userAuthStore.ts';
 import { createPost } from '../api/posts';
-
+import { Navigate } from 'react-router-dom';
 export const CreatePost = () => {
   const [content, setContent] = useState('');
-  const { user } = useAuthStore();
+  const { user, profile } = useAuthStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,8 +16,14 @@ export const CreatePost = () => {
       userId: user.id,
       email: user.email || '',
       createdAt: new Date().toISOString(),
-    })
+    });
   };
+
+  if (profile?.role !== "admin" || !profile) {
+    return (
+      <Navigate to={'/'} />
+    );
+  }
 
   return (
     <Container maxWidth="md">
