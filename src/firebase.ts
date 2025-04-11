@@ -3,12 +3,14 @@ import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, si
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_API_KEY,
-    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_SENDER_ID,
-    appId: import.meta.env.VITE_APP_ID,
+    apiKey: "AIzaSyBF1Qgj3ElzHHrWr_P_LE8HWV0Plucl61Y",
+    authDomain: "nana-auth.firebaseapp.com",
+    databaseURL: "https://nana-auth-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "nana-auth",
+    storageBucket: "nana-auth.firebasestorage.app",
+    messagingSenderId: "685098094530",
+    appId: "1:685098094530:web:4809b6108645dcae28505b",
+    measurementId: "G-MC24FK60S7"
 };
 
 const app = initializeApp(firebaseConfig);
