@@ -1,9 +1,8 @@
-import {useState} from 'react';
-import {Box, Button, Container, TextField, Typography} from '@mui/material';
-import {emailSignUp} from '../firebase';
-
-import {Link, useNavigate} from 'react-router-dom';
-import {useAuthStore} from '../store/userAuthStore';
+import { useState } from 'react';
+import { Button, TextField, Container, Typography, Box } from '@mui/material';
+import { emailSignUp } from '../firebase';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/userAuthStore';
 
 export const Register = () => {
   const [email, setEmail] = useState('');
@@ -16,17 +15,19 @@ export const Register = () => {
     e.preventDefault();
     try {
       const { user } = await emailSignUp(email, password);
-      setUser({email: user.email, id: user.uid});
+      setUser({ email: user.email, id: user.uid });
       navigate('/');
     } catch (error) {
-      setError(`Error: ${error}`);
+      setError(`Ошибка: ${error}`);
     }
   };
 
   return (
     <Container maxWidth="xs">
       <Box sx={{ mt: 8 }}>
-        <Typography variant="h4" align="center">Register</Typography>
+        <Typography variant="h4" align="center">
+          Регистрация
+        </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
             fullWidth
@@ -38,17 +39,17 @@ export const Register = () => {
           <TextField
             fullWidth
             margin="normal"
-            label="Password"
+            label="Пароль"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           {error && <Typography color="error">{error}</Typography>}
           <Button fullWidth variant="contained" type="submit" sx={{ mt: 2 }}>
-            Login
+            Зарегистрироваться
           </Button>
           <Typography sx={{ mt: 2 }}>
-            Already have an account? <Link to="/login">Login</Link>
+            Уже есть аккаунт? <Link to="/login">Войти</Link>
           </Typography>
         </form>
       </Box>
